@@ -1,5 +1,8 @@
 package br.gov.mctic.sisgesac.automacao.core;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import org.junit.Assert;
@@ -75,6 +78,8 @@ public class AbstractPageObject {
     @FindBy(xpath = "//span[.='Exportar PDF']")
 	private WebElement botaoExportarPdf;
 	
+	
+	
     protected void solicitarExportarPDF() {
 		botaoExportarPdf.click();		
 	}	
@@ -82,5 +87,12 @@ public class AbstractPageObject {
     public void acessarFuncionalidade(String funcionalidade) {
 		 WebElement botao = WDS.get().findElement(By.xpath("//ngc-botao//button[@aria-label='"+funcionalidade+"']"));
 		 botao.click();
+	}
+    
+    public void esc() throws AWTException {
+
+    	Robot r = new Robot();
+    	r.keyPress(KeyEvent.VK_ESCAPE);
+    	r.keyRelease(KeyEvent.VK_ESCAPE);
 	}
 }
