@@ -29,7 +29,7 @@ public class CadastroInstituicaoResponsavelCenario extends AbstractCenario {
         Em(CadastroInstituicaoResponsavelPage.class).campoEmailContato("debora.barbosa@mctic.gov.br");
         Em(CadastroInstituicaoResponsavelPage.class).informarTelefoneContato("61991032835");
 //        Em(CadastroInstituicaoResponsavelPage.class).situacaoAtivo();
-        botaoAdicionar();
+        solicitarAdicionar();
         aguardarCarregamento();
         Em(CadastroInstituicaoResponsavelPage.class).botaoSalvar();
         exibeMensagem("Cadastro realizado com sucesso!");

@@ -1,21 +1,41 @@
 package br.gov.mctic.sisgesac.automacao.pageobject;
 
 import java.awt.AWTException;
+import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import br.gov.mctic.sisgesac.automacao.core.AbstractPageObject;
 import br.gov.mctic.sisgesac.automacao.core.WDS;
 
 public class CadastrarSolicitacaoDePontoDePresencaPage extends AbstractPageObject {
 
-	public void campoObrigatorio(String campo) {
+	public void campoObrigatorioInputNameBeneficiario() {
+		String[] campoInput = { "nomeEstabelecimento", "computadoresEstabelecimento", "cep", "uf", "municipio",
+				"logradouro", "numero", "bairro" };
+		WDS.delay(500);
+		solicitarProximo();
+		for (int i = 0; i < campoInput.length; i++) {
+			WebElement validarMensagem = WDS.get()
+					.findElement(By.xpath("//md-input-container//div[@input-name='" + campoInput[i] + "']"));
+			Assert.assertEquals("Campo de preenchimento obrigatório.", validarMensagem.getText());
+		}
 
-		WebElement validarMensagem = WDS.get().findElement(By.xpath("//label[text()= '" + campo + "']"));
-		Assert.assertEquals("Campo de preenchimento obrigatório.", validarMensagem.getText());
+	}
+	
+	@FindBy(xpath = "//div[@class='radio-invalido ng-binding ng-scope']")
+	public List<WebElement> radios;
+	
+	public void campoObrigatorioRadioButton() {
+		for (int i = 0; i < radios.size(); i++) {
+			WebElement radio = radios.get(i);
+			System.out.println(radios);
+		}
 
 	}
 
@@ -86,11 +106,17 @@ public class CadastrarSolicitacaoDePontoDePresencaPage extends AbstractPageObjec
 
 	public void situacao(String string) {
 		WebElement select = WDS.get().findElement(By.name("ativo"));
-		WebElement opcao = WDS.get().findElement(By.xpath("//md-option//div[text()='"+string.toUpperCase()+"']"));
+		WebElement opcao = WDS.get().findElement(By.xpath("//md-option//div[text()='" + string.toUpperCase() + "']"));
 		select.click();
 		opcao.click();
-		
-		
+		WDS.delay(500);
+
+	}
+
+	public void salvar() {
+		WebElement salvar = WDS.get().findElement(By.xpath("//ngc-botao//button[@aria-label=\"Salvar\"]"));
+		salvar.click();
+
 	}
 
 }

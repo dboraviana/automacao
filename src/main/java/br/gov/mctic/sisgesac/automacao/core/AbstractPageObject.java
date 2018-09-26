@@ -37,7 +37,7 @@ public class AbstractPageObject {
 	}
     
     
-    public void botaoAdicionar() {
+    public void solicitarAdicionar() {
     	List<WebElement> botoesAdicionar = WDS.get().findElements(By.xpath("//ngc-cartao-acoes//button[text()='Adicionar']"));
     	
     	WDS.delay(500);
